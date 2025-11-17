@@ -1,0 +1,25 @@
+{
+  "name": "javascript-chat-application",
+  "version": "1.0.0",
+  "description": "This is a chat application project using vanilla javascript and node js",
+  "homepage": "https://github.com/RaheemKhan0/javascript-chat-application#readme",
+  "bugs": {
+    "url": "https://github.com/RaheemKhan0/javascript-chat-application/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RaheemKhan0/javascript-chat-application.git"
+  },
+  "license": "ISC",
+  "author": "Muhammad Raheem Khan",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server" : "node api/server.js"
+  },
+  "dependencies": {
+    "@types/node": "^24.10.1",
+    "dotenv": "^17.2.3"
+  }
+}
