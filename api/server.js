@@ -67,19 +67,23 @@ const server = createServer((req, res) => {
 const wss = new WebSocketServer({ server });
 wss.on("connection", function connection(ws) {
   console.log(`socket : ${ws} just joined the server`);
-  ws.send(JSON.stringify({
-    type : 'message', 
-    content : 'Welcome to the Node js Chat Server!',
-  }));
-  ws.on('message', (data) => {
-    console.log('recieved message from the client side : ', data);
+  ws.send(
+    JSON.stringify({
+      type: "message",
+      content: "Welcome to the Node js Chat Server!",
+    }),
+  );
+  ws.on("message", (data) => {
+    console.log("recieved message from the client side : ", data);
     wss.clients.forEach((client) => {
-      const text = data.toString();
-      client.send(text);
-    })
-  })
+      if (client != ws) {
+        const text = data.toString();
+        console.log(`converted data to string : ${text}`);
+        client.send(text);
+      }
+    });
+  });
 });
-
 
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);

@@ -1,7 +1,47 @@
-
 h1 {
-  color : black;
+  color: black;
 }
+
 body {
-  color : #FAF9F6;
+  color: #faf9f6;
+}
+
+ul {
+  list-style-type: none;
+  display: block;
+  width: 50%;
+  margin: auto;
+}
+
+li {
+  list-style: none;
+}
+
+.message-list {
+  flex-direction: column;
+  gap: 10px;
+}
+
+.message {
+  border: 1px;
+  background-color: whitesmoke;
+  color: black;
+}
+.announcment {
+  font-size : 20px;
+  color : red;
+}
+
+.send-container {
+  display: flex;
+  justify-content: center;
+}
+
+.own-message {
+  text-align: right;
+}
+
+.other-message {
+  text-align: left;
+  background-color: white;
 }
