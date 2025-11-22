@@ -114,7 +114,7 @@ wss.on("connection", function connection(ws) {
         }
         console.log(`storing username ${username} in the map`);
         usermap.set(ws, username);
-        break;
+        break; 
       default:
         console.log(parsedData.type);
         throw Error("this type is not valid");

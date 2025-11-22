@@ -60,6 +60,7 @@ socket.onmessage = (event) => {
 };
 
  function handleIncoming(data) {
+  console.log('handling incoming message type : ', data.type)
     switch (data.type) {
       case "message":
         handleMessage(data);
@@ -69,17 +70,20 @@ socket.onmessage = (event) => {
         break;
     }
   }
+handleNotification('server announcment', "Welcome to the javascript chat application!");
 
 function handleNotification(type, message) {
+  console.log('handling notification');
   const header = document.createElement("h6");
   header.innerText = type;
   const p = document.createElement("p");
   p.innerText = message;
 
-  notificationdiv.append(...[header, p]);
-  notification.classList.add("block");
+  notificationdiv.append(header, p);
+  notificationdiv.classList.add("block");
   setTimeout(() => {
     notificationdiv.classList.remove("block");
+    notificationdiv.innerHTML = "";
   }, 3000);
 }
 function handleMessage(text) {
