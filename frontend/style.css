@@ -5,7 +5,7 @@ h1 {
 body {
   color: #faf9f6;
 }
-.block {
+.notification.block {
   display: block;
 }
 .notification {
