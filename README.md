@@ -46,7 +46,7 @@ chat-application/
 2. Provide `HOSTNAME` and `PORT` in `.env` (defaults work if already set).
 3. Start the server:
    ```bash
-   node api/server.js
+   npm run server
    ```
 4. Open `http://HOSTNAME:PORT` in your browser and submit a username to join the room.
 
