@@ -56,10 +56,8 @@ const server = createServer((req, res) => {
     try {
       homepage = readFileSync(path.join(dirname, "../frontend/index.html"));
     } catch (error) {
-      console.log("error while reading the file");
       console.log(error);
     }
-    console.log(`returning home page : ${homepage}`);
     return res.end(homepage);
   }
   res.writeHead(404, { "Content-Type": "text/plain" });
@@ -70,15 +68,8 @@ wss.on("connection", function connection(ws) {
   console.log(`socket : ${ws} just joined the server`);
   ws.send(
     JSON.stringify({
-      type: "message",
+      type: "server-announcement",
       content: "Welcome to the Node js Chat Server!",
-    }),
-  );
-  ws.send(
-    JSON.stringify({
-      type: "join",
-      username: usermap.get(ws),
-      content: `${ws.username} just joined the chat`,
     }),
   );
   ws.on("message", (data) => {
@@ -114,7 +105,18 @@ wss.on("connection", function connection(ws) {
         }
         console.log(`storing username ${username} in the map`);
         usermap.set(ws, username);
-        break; 
+        wss.clients.forEach((client) => {
+          if (client != ws && client.readyState === WebSocket.OPEN) {
+            client.send(
+              JSON.stringify({
+                type: "join",
+                username: usermap.get(ws),
+                content: `${ws.username} just joined the chat`,
+              }),
+            );
+          }
+        });
+        break;
       default:
         console.log(parsedData.type);
         throw Error("this type is not valid");

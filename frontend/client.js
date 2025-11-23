@@ -59,26 +59,31 @@ socket.onmessage = (event) => {
   handleIncoming(JSON.parse(payload));
 };
 
- function handleIncoming(data) {
-  console.log('handling incoming message type : ', data.type)
-    switch (data.type) {
-      case "message":
-        handleMessage(data);
-        break;
-      case "join":
-        handleNotification(data.type, data.content);
-        break;
-    }
+function handleIncoming(data) {
+  console.log("handling incoming message type : ", data.type);
+  switch (data.type) {
+    case "message":
+      handleMessage(data);
+      break;
+    case "join":
+      handleNotification(data.type, data);
+      break;
   }
-handleNotification('server announcment', "Welcome to the javascript chat application!");
+}
 
 function handleNotification(type, message) {
-  console.log('handling notification');
+  console.log("handling notification");
   const header = document.createElement("h6");
   header.innerText = type;
   const p = document.createElement("p");
   p.innerText = message;
-
+  if (!message?.username) {
+    console.error("message not defined in the username");
+  }
+  switch (type) {
+    case "join":
+      p.innerText = `${message.username} just joined the chat`;
+  }
   notificationdiv.append(header, p);
   notificationdiv.classList.add("block");
   setTimeout(() => {

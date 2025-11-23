@@ -1,53 +1,55 @@
-Real-Time Chat Application – Vanilla Node.js (WebSockets)
+# Real-Time Chat Application (Vanilla Node.js + WebSockets)
 
-This project is a simple real-time chat application built using pure WebSockets — without Express, Socket.io, or any frontend frameworks.
-The goal of this project is to deeply understand:
+Lightweight chat system that relies solely on Node.js, the `ws` WebSocket library, and vanilla HTML/CSS/JS. No Express, Socket.IO, or frontend frameworks—this repo exists to understand how WebSockets work under the hood and how to wire up a minimal real-time stack end-to-end.
 
-How WebSockets work at a low level
+## Goals
 
-How to handle real-time communication in Node.js
+- Learn how the browser WebSocket API talks to a Node.js WebSocket server.
+- Explore event-driven patterns (`open`, `message`, `close`, `error`) without higher-level abstractions.
+- Understand how to structure a tiny real-time application before layering frameworks in later iterations.
 
-How browser WebSocket clients communicate with a WebSocket server
+## Features
 
-Event-driven architecture (message, open, close, error)
+### Backend (`api/server.js`)
 
-How to structure a minimal real-time application
+- Pure Node.js HTTP server upgraded to WebSockets via [`ws`](https://github.com/websockets/ws).
+- Tracks connected clients and their usernames with a `Map`.
+- Broadcasts chat messages and join notifications to everyone else in the room.
+- Minimal boilerplate so you can follow the entire real-time flow.
 
-This is the first version of the chat system (Project A).
-Later versions will use Express, Socket.io, and MongoDB.
+### Frontend (`frontend/`)
 
-Features
-Backend (Node.js + ws library)
+- Vanilla HTML/CSS UI with a simple message list and notification area.
+- Uses the browser’s native `WebSocket` API to connect, send messages, and react to server events.
+- Hides the chat UI until a username is registered, mirroring state on the server.
 
-WebSocket server built using the ws package
+## Project Structure
 
-Handles client connections and disconnections
-
-Broadcasts messages to all connected clients
-
-Event-driven message handling
-
-Minimal and framework-free implementation to show how real-time systems actually work
-
-Frontend (HTML, CSS, JavaScript)
-
-Built using vanilla HTML, CSS, and JS
-
-Connects using the browser's native WebSocket API
-
-Sends messages to the server
-
-Receives real-time messages from other users
-
-Displays chat messages dynamically on the page
-
-Project Structure
-chat-app/
-│
+```
+chat-application/
 ├── api/
-        server.js          # Node.js WebSocket server (using ws library)
-└── public/
-      ├── index.html   # Chat UI
-      ├── style.css    # Optional styling
-      └── client.js    # WebSocket client logic (vanilla JS)
+│   └── server.js        # Node.js WebSocket server (ws library)
+├── frontend/
+│   ├── client.js        # Browser WebSocket client logic
+│   ├── index.html       # Chat UI
+│   └── style.css        # Styling
+├── package.json
+└── README.md
+```
 
+## Getting Started
+
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+2. Provide `HOSTNAME` and `PORT` in `.env` (defaults work if already set).
+3. Start the server:
+   ```bash
+   node api/server.js
+   ```
+4. Open `http://HOSTNAME:PORT` in your browser and submit a username to join the room.
+
+## Next Steps
+
+Future iterations (Project B, C, …) will layer in Express, Socket.IO, MongoDB, and richer UI/UX. This baseline keeps everything simple so changes in those versions are easier to reason about.
