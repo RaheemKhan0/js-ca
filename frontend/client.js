@@ -92,7 +92,7 @@ function handleNotification(type, message) {
   }, 3000);
 }
 function handleMessage(text) {
-  const { type, content } = JSON.parse(text);
+  const { type, content } = text;
   switch (type) {
     case "message":
       let li = document.createElement("li");
